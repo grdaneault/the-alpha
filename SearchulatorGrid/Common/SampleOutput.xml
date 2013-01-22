@@ -1,0 +1,273 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<queryresult success='true'
+    error='false'
+    numpods='9'
+    datatypes='Country,WorldDevelopment'
+    timedout='Data,Character'
+    timedoutpods=''
+    timing='2.134'
+    parsetiming='0.135'
+    parsetimedout='false'
+    recalculate='http://www2.wolframalpha.com/api/v2/recalc.jsp?id=MSPa49711a431732f245ebf000001efc45b17a99828e&amp;s=1'
+    id='MSPa49721a431732f245ebf000003d90ifhg236i18ib'
+    auth=''
+    host='http://www2.wolframalpha.com'
+    server='1'
+    related='http://www2.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa49731a431732f245ebf0000039d141fg22cedf64&amp;s=1'
+    version='2.6'>
+  <pod title='Input interpretation'
+      scanner='Identity'
+      id='Input'
+      position='100'
+      error='false'
+      numsubpods='1'>
+    <subpod title=''>
+      <plaintext>China</plaintext>
+      <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49741a431732f245ebf00000117fdbb47h3d6gdc?MSPStoreType=image/gif&amp;s=1'
+          alt='China'
+          title='China'
+          width='38'
+          height='18' />
+    </subpod>
+  </pod>
+  <pod title='Name'
+      scanner='Data'
+      id='Identifiers:CountryData'
+      position='200'
+      error='false'
+      numsubpods='1'>
+    <subpod title=''>
+      <plaintext>
+        full name | People&apos;s Republic of China
+        full native name | Zhonghua Renmin Gongheguo
+        internet code | .cn
+      </plaintext>
+      <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49751a431732f245ebf000006925b8ae5g6hhg02?MSPStoreType=image/gif&amp;s=1'
+          alt='full name | People&apos;s Republic of China
+full native name | Zhonghua Renmin Gongheguo
+internet code | .cn'
+          title='full name | People&apos;s Republic of China
+full native name | Zhonghua Renmin Gongheguo
+internet code | .cn'
+          width='358'
+          height='100' />
+    </subpod>
+    <states count='1'>
+      <state name='More'
+          input='Identifiers:CountryData__More' />
+    </states>
+  </pod>
+  <pod title='Flag'
+      scanner='Data'
+      id='Flag:CountryData'
+      position='300'
+      error='false'
+      numsubpods='1'>
+    <subpod title=''>
+      <plaintext></plaintext>
+      <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49761a431732f245ebf0000059fa7eeg49eec1be?MSPStoreType=image/gif&amp;s=1'
+          alt=''
+          title=''
+          width='55'
+          height='37' />
+    </subpod>
+  </pod>
+  <pod title='Location'
+      scanner='Data'
+      id='Location:CountryData'
+      position='400'
+      error='false'
+      numsubpods='1'>
+    <subpod title=''>
+      <plaintext></plaintext>
+      <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49771a431732f245ebf000004f16e42g3gi10c98?MSPStoreType=image/gif&amp;s=1'
+          alt=''
+          title=''
+          width='446'
+          height='416' />
+    </subpod>
+    <states count='1'>
+      <state name='Show mesh'
+          input='Location:CountryData__Show mesh' />
+    </states>
+    <infos count='1'>
+      <info>
+        <link url='http://www.bing.com/maps/?v=2&amp;sty=b&amp;lvl=3&amp;cp=35.9789~104.162&amp;where1=35.9789%20N%2C%20104.162%20E'
+            text='Satellite image' />
+      </info>
+    </infos>
+  </pod>
+  <pod title='Geographic properties'
+      scanner='Data'
+      id='GeographicProperties:CountryData'
+      position='500'
+      error='false'
+      numsubpods='1'>
+    <subpod title=''>
+      <plaintext>
+        total area | 3.705 million mi^2  (square miles)  (world rank: 4th)
+        land area | 3.601 million mi^2  (square miles)  (world rank: 2nd)
+      </plaintext>
+      <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49781a431732f245ebf0000030078bf8cd874ei1?MSPStoreType=image/gif&amp;s=1'
+          alt='total area | 3.705 million mi^2  (square miles)  (world rank: 4th)
+land area | 3.601 million mi^2  (square miles)  (world rank: 2nd)'
+          title='total area | 3.705 million mi^2  (square miles)  (world rank: 4th)
+land area | 3.601 million mi^2  (square miles)  (world rank: 2nd)'
+          width='413'
+          height='68' />
+    </subpod>
+    <states count='2'>
+      <state name='More'
+          input='GeographicProperties:CountryData__More' />
+      <state name='Show metric'
+          input='GeographicProperties:CountryData__Show metric' />
+    </states>
+  </pod>
+  <pod title='Bordering countries/regions'
+      scanner='Data'
+      id='BorderingCountries:CountryData'
+      position='600'
+      error='false'
+      numsubpods='1'>
+    <subpod title=''>
+      <plaintext>Afghanistan  |  Bhutan  |  Hong Kong  |  India  |  Kazakhstan  |  Kyrgyzstan  |  Laos  |  Macau  |  Mongolia  |  Myanmar  |  Nepal  |  North Korea  |  Pakistan  |  Russia  |  Tajikistan  |  Vietnam</plaintext>
+      <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49791a431732f245ebf000005g824eeih98gg2gd?MSPStoreType=image/gif&amp;s=1'
+          alt='Afghanistan  |  Bhutan  |  Hong Kong  |  India  |  Kazakhstan  |  Kyrgyzstan  |  Laos  |  Macau  |  Mongolia  |  Myanmar  |  Nepal  |  North Korea  |  Pakistan  |  Russia  |  Tajikistan  |  Vietnam'
+          title='Afghanistan  |  Bhutan  |  Hong Kong  |  India  |  Kazakhstan  |  Kyrgyzstan  |  Laos  |  Macau  |  Mongolia  |  Myanmar  |  Nepal  |  North Korea  |  Pakistan  |  Russia  |  Tajikistan  |  Vietnam'
+          width='470'
+          height='65' />
+    </subpod>
+    <states count='1'>
+      <state name='Show border lengths'
+          input='BorderingCountries:CountryData__Show border lengths' />
+    </states>
+  </pod>
+  <pod title='Dependencies'
+      scanner='Data'
+      id='Dependencies:CountryData'
+      position='700'
+      error='false'
+      numsubpods='1'>
+    <subpod title=''>
+      <plaintext>Hong Kong  |  Macau</plaintext>
+      <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49801a431732f245ebf000003fbh76ggi4i5c020?MSPStoreType=image/gif&amp;s=1'
+          alt='Hong Kong  |  Macau'
+          title='Hong Kong  |  Macau'
+          width='145'
+          height='18' />
+    </subpod>
+  </pod>
+  <pod title='Demographics'
+      scanner='Data'
+      id='DemographicProperties:CountryData'
+      position='800'
+      error='false'
+      numsubpods='1'>
+    <subpod title=''>
+      <plaintext>
+        population | 1.35 billion people  (world rank: 1st)  (2010 estimate)
+        population density | 376 people/mi^2  (people per square mile)  (world rank: 80th)  (2010 estimate)
+        population growth | 0.63 %/yr  (world rank: 154th)  (2008 estimate)
+        life expectancy | 73.5 years  (world rank: 109th)  (2009 estimate)
+        median age | 34.1 years  (world rank: 69th)  (2009 estimate)
+      </plaintext>
+      <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49811a431732f245ebf000005g1eei83cf5d81h7?MSPStoreType=image/gif&amp;s=1'
+          alt='population | 1.35 billion people  (world rank: 1st)  (2010 estimate)
+population density | 376 people/mi^2  (people per square mile)  (world rank: 80th)  (2010 estimate)
+population growth | 0.63 %/yr  (world rank: 154th)  (2008 estimate)
+life expectancy | 73.5 years  (world rank: 109th)  (2009 estimate)
+median age | 34.1 years  (world rank: 69th)  (2009 estimate)'
+          title='population | 1.35 billion people  (world rank: 1st)  (2010 estimate)
+population density | 376 people/mi^2  (people per square mile)  (world rank: 80th)  (2010 estimate)
+population growth | 0.63 %/yr  (world rank: 154th)  (2008 estimate)
+life expectancy | 73.5 years  (world rank: 109th)  (2009 estimate)
+median age | 34.1 years  (world rank: 69th)  (2009 estimate)'
+          width='496'
+          height='181' />
+    </subpod>
+    <states count='3'>
+      <state name='Show rates'
+          input='DemographicProperties:CountryData__Show rates' />
+      <state name='Show distribution'
+          input='DemographicProperties:CountryData__Show distribution' />
+      <state name='Show metric'
+          input='DemographicProperties:CountryData__Show metric' />
+    </states>
+    <infos count='1'>
+      <info>
+        <units count='1'>
+          <unit short='%/yr'
+              long='percent per year' />
+          <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49821a431732f245ebf0000058eg4ef1i3ieieb1?MSPStoreType=image/gif&amp;s=1'
+              width='156'
+              height='26' />
+        </units>
+      </info>
+    </infos>
+  </pod>
+  <pod title='UN Human Development Index'
+      scanner='Data'
+      id='HDI:WorldDevelopmentData'
+      position='900'
+      error='false'
+      numsubpods='1'>
+    <subpod title=''>
+      <plaintext>
+        health | 0.843  (world rank: 86th)
+        education | 0.623  (world rank: 115th)
+        living standards | 0.618  (world rank: 94th)
+        total | 0.687  (world rank: 101st)
+        (2011)
+      </plaintext>
+      <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP49831a431732f245ebf0000013c7g5ag52gf7h4f?MSPStoreType=image/gif&amp;s=1'
+          alt='health | 0.843  (world rank: 86th)
+education | 0.623  (world rank: 115th)
+living standards | 0.618  (world rank: 94th)
+total | 0.687  (world rank: 101st)
+(2011)'
+          title='health | 0.843  (world rank: 86th)
+education | 0.623  (world rank: 115th)
+living standards | 0.618  (world rank: 94th)
+total | 0.687  (world rank: 101st)
+(2011)'
+          width='300'
+          height='153' />
+    </subpod>
+    <definitions count='4'>
+      <definition word='health'
+          desc='measured by life expectancy, using the actual observed minimum and maximum values for the countries in the time series. The HDI shows where each country stands in relation to these goalposts, expressed as a value between 0 and 1.' />
+      <definition word='education'
+          desc='measured by the mean of years of schooling for adults aged 25 years and expected years of schooling for children of school attending age. Mean years of schooling estimates are based on duration of schooling at each level of education. Expected years of schooling estimates are based on enrollment by age at all levels of education and population of official school age for each level of education. The indicators are normalized using a minimum value of zero with maximum values set to the actual observed maximum values of the indicators for the countries in the time series. The HDI  shows where each country stands in relation to these goalposts, expressed as a value between 0 and 1.' />
+      <definition word='living standards'
+          desc='measured by GNI per capita (PPP US$). The HDI uses the logarithm of income, to reflect the diminishing importance of income with increasing GNI. The indicators are normalized using the actual observed minimum and maximum values for the countries in the time series. The HDI  shows where each country stands in relation to these goalposts, expressed as a value between 0 and 1.' />
+      <definition word='total'
+          desc='measures development by combining indicators of life expectancy, educational attainment and income. The HDI sets a minimum and a maximum for each dimension, called goalposts, and then shows where  
+each country stands in relation to these goalposts, expressed as a value between 0 and 1.' />
+    </definitions>
+  </pod>
+  <assumptions count='1'>
+    <assumption type='Clash'
+        word='China'
+        template='Assuming &quot;${word}&quot; is ${desc1}. Use as ${desc2} instead'
+        count='4'>
+      <value name='Country'
+          desc='a country'
+          input='*C.China-_*Country-' />
+      <value name='Species'
+          desc='a species specification'
+          input='*C.China-_*Species-' />
+      <value name='GivenName'
+          desc='a given name'
+          input='*C.China-_*GivenName-' />
+      <value name='AdministrativeDivision'
+          desc='an administrative division'
+          input='*C.China-_*AdministrativeDivision-' />
+    </assumption>
+  </assumptions>
+  <sources count='2'>
+    <source url='http://www.wolframalpha.com/sources/CountryDataSourceInformationNotes.html'
+        text='Country data' />
+    <source url='http://www.wolframalpha.com/sources/WorldDevelopmentDataSourceInformationNotes.html'
+        text='World development data' />
+  </sources>
+</queryresult>

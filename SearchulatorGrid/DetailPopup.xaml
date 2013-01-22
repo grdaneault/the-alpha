@@ -1,0 +1,187 @@
+﻿<common:LayoutAwarePage
+    x:Name="pageRoot"
+    x:Class="SearchulatorGrid.DetailPopup"
+    DataContext="{Binding SelectedPod, RelativeSource={RelativeSource Self}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SearchulatorGrid"
+    xmlns:common="using:SearchulatorGrid.Common"
+    xmlns:q42controls="using:Q42.WinRT.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <!--
+    <Page.BottomAppBar>
+        <AppBar>
+        </AppBar>
+    </Page.BottomAppBar>-->
+    <!-- Copy Image (Selected)-->
+    <!-- Copy Plaintext (Selected)-->
+    <!-- Copy Image Link (Selected)-->
+    <!-- List of states (metric, more digits, etc)-->
+    <!-- Wolfram Link-->
+
+    <Page.Resources>
+
+        <common:BooleanNegationConverter x:Key="BooleanNegationConverter"/>
+        <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        
+        <Style x:Key="MoreAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="MoreAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="More"/>
+            <Setter Property="Content" Value="&#xE10C;"/>
+        </Style>
+
+        <Style x:Key="CopyAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="CopyAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Copy"/>
+            <Setter Property="Content" Value="&#xE16F;"/>
+        </Style>
+
+        <Style x:Key="GlobeAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="GlobeAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Globe"/>
+            <Setter Property="Content" Value="&#xE12B;"/>
+        </Style>
+
+
+    </Page.Resources>
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid
+        x:Name="RootPanel"
+        Opacity="1"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch" Background="Black"
+        >
+        <!--
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="120" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="120" />
+        </Grid.RowDefinitions>
+        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="1" Click="CloseButton_Click" />
+        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="1" Click="CloseButton_Click" />
+        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1" Click="CloseButton_Click" />
+        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1" Click="CloseButton_Click" />
+        -->
+
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition/>
+                <RowDefinition Height="0" />
+            </Grid.RowDefinitions>
+
+            
+            <!-- Back button and page title -->
+            <Grid Background="{StaticResource    ApplicationPageBackgroundThemeBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" />
+                <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{Binding Title}" Style="{StaticResource PageHeaderTextStyle}" />
+
+            </Grid>
+            <ProgressBar x:Name="LoadingIndicatorFull" Foreground="#FFBD0F0F" IsIndeterminate="True" Visibility="{Binding Result.Working, Converter={StaticResource BooleanToVisibilityConverter}}"
+                     Margin="0,20,0,94" FontSize="36" Height="6" />
+            <ListView 
+                    x:Name="resultsListView"
+                    AutomationProperties.AutomationId="ResultsListView"
+                    AutomationProperties.Name="Search Results"
+                    TabIndex="1"
+                    Grid.Row="1"
+                    Margin="10,0,0,0"
+                    Padding="0,0,0,60"
+                    IsSwipeEnabled="false"
+                    IsItemClickEnabled="True"
+                    ItemsSource="{Binding Images}"
+                    SelectedIndex="{Binding CurrentIndex, Mode=TwoWay}"
+                    SelectionChanged="Selection_Changed">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="ImageGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="10000" MinHeight="48" >
+                            <Grid.Background>
+                                <SolidColorBrush Color="White" />
+                            </Grid.Background>
+                            <Image x:Name="img" q42controls:ImageExtensions.CacheUri="{Binding URL}" Width="{Binding Width}" Height="{Binding Height}" Margin="20,5,20,5" HorizontalAlignment="Left" VerticalAlignment="Center" RightTapped="ShowImageMenu_RightTap" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <VisualStateManager.VisualStateGroups>
+
+                <!-- Visual states reflect the application's view state -->
+                <VisualStateGroup x:Name="ApplicationViewStates">
+                    <VisualState x:Name="FullScreenLandscape"/>
+                    <VisualState x:Name="Filled"/>
+
+                    <!-- The entire page respects the narrower 100-pixel margin convention for portrait -->
+                    <VisualState x:Name="FullScreenPortrait">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+
+                    <!-- The back button and title have different styles when snapped -->
+                    <VisualState x:Name="Snapped">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Grid>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <AppBar x:Name="ImageOptionsAppBar">
+            <Grid>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <Button Style="{StaticResource CopyAppBarButtonStyle}" AutomationProperties.Name="Copy" Click="CopyMenu_Click" />
+                    <Button Style="{StaticResource GlobeAppBarButtonStyle}" AutomationProperties.Name="Open in Browser" Click="OpenInBrowser"/>
+                    <!-- Copy Image (Selected)-->
+                    <!-- Copy Plaintext (Selected)-->
+                    <!-- Copy Image Link (Selected)-->
+                    <!-- List of states (metric, more digits, etc)-->
+                    <!-- Wolfram Link-->
+                </StackPanel>
+                <ItemsControl 
+                        x:Name="states"
+                        TabIndex="1"
+                        Margin="10,0,0,0"
+                        Padding="0,0,0,60"
+                        ItemsSource="{Binding States}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource MoreAppBarButtonStyle}" AutomationProperties.Name="{Binding Name}" Click="ApplyState" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
+</common:LayoutAwarePage>
