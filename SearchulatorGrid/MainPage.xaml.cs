@@ -15,34 +15,19 @@ namespace SearchulatorGrid
     /// </summary>
     public sealed partial class MainPage : SearchulatorGrid.Common.LayoutAwarePage
     {
-        private sealed class Letter
-        {
-            private string _letter;
-
-            public Letter(char l)
-            {
-                _letter = "" + l;
-            }
-
-            public string Character
-            {
-                get { return _letter; }
-                set { _letter = value; }
-            }
-        }
-
         public MainPage()
         {
             this.InitializeComponent();
 
+            /*
             var characterList = new List<Letter>();
             foreach (char c in "π°∞√∫∮∑∂∏∀∃⋃⋂∇∆αβγδεζηθκλμνξρστφχψωΓΘΛΞΥΦΨΩ℧Åℏℵ⇋→⊕⊙†".ToCharArray())
             {
                 characterList.Add(new Letter(c));
             }
 
-            DefaultViewModel["Characters"] = characterList;
-                SearchPane.GetForCurrentView().SuggestionsRequested +=
+            DefaultViewModel["Characters"] = characterList;*/
+            SearchPane.GetForCurrentView().SuggestionsRequested +=
                 new TypedEventHandler<SearchPane, SearchPaneSuggestionsRequestedEventArgs>(Results_SuggestionsRequested);
 
             SearchPane.GetForCurrentView().ShowOnKeyboardInput = false; // Turn off searching by typing from main window
