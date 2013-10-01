@@ -12,6 +12,7 @@ namespace SearchulatorGrid.Pods
         public string Alt { get; set; }
 
         public int Height { get; set; }
+        public int PaddedHeight { get { return Height + 10; } }
         public int Width { get; set; }
 
         public Pod Owner { get; set; }
@@ -38,7 +39,11 @@ namespace SearchulatorGrid.Pods
 
         public ImageResult(XElement subpod)
         {
-            XElement img = subpod.Element("img");
+            XElement img = subpod;
+            if (subpod.Name.LocalName != "img")
+            {
+                img = subpod.Element("img");
+            }
             URL = img.Attribute("src").Value;
             Alt = img.Attribute("alt").Value;
 

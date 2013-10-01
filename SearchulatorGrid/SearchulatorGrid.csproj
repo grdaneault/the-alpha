@@ -103,6 +103,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\ImageMenuItem.cs" />
+    <Compile Include="Common\TileCanvas.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Pods\Assumption.cs" />
     <Compile Include="Pods\AdPod.cs" />
@@ -111,8 +113,11 @@
     <Compile Include="Common\BooleanToVerticalAlignmentConverter.cs" />
     <Compile Include="Common\BooleanToVerticalScrollModeConverter.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Pods\FormulaAssumption.cs" />
     <Compile Include="Pods\ImageResult.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
+    <Compile Include="Pods\Info.cs" />
+    <Compile Include="Pods\InfoLink.cs" />
     <Compile Include="Pods\Pod.cs" />
     <Compile Include="PodButton.cs" />
     <Compile Include="Common\PodDataTemplateSelector.cs" />
@@ -157,8 +162,14 @@
     <Content Include="Assets\5\residues.gif" />
     <Content Include="Assets\5\roman numerals.gif" />
     <Content Include="Assets\5\visual representation.gif" />
+    <Content Include="Assets\Backgrounds\abstract-15881_1920.jpg" />
+    <Content Include="Assets\Backgrounds\abstract-19731_1920.jpg" />
+    <Content Include="Assets\Backgrounds\fractal-165891-flip.png" />
+    <Content Include="Assets\Backgrounds\fractal-165891.png" />
     <Content Include="Assets\cube_logo.scale-100.png" />
     <Content Include="Assets\cube_logo.scale-180.png" />
+    <Content Include="Assets\background.png" />
+    <Content Include="Assets\gplaypattern.png" />
     <Content Include="Assets\Overlay.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\cube_logo_small.png" />
@@ -181,6 +192,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Common\CallistoExtension.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Common\Red.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -221,6 +237,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="MSAdvertisingXaml, Version=6.1">
@@ -236,7 +256,7 @@
     </Reference>
     <Reference Include="Q42.WinRT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\Q42.WinRT-master\Q42.WinRT-master\Q42.WinRT\bin\Release\Q42.WinRT.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\Q42.WinRT-master\Q42.WinRT-master\Q42.WinRT\bin\Release\Q42.WinRT.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

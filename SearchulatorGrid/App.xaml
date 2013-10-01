@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SearchulatorGrid"
-    RequestedTheme="Dark">
+    RequestedTheme="Light">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -15,6 +15,7 @@
                  -->
                 <ResourceDictionary Source="Common/StandardStyles.xaml"/>
                 <ResourceDictionary Source="Common/Red.xaml"/>
+                <ResourceDictionary Source="Common/CallistoExtension.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

@@ -73,6 +73,12 @@ namespace SearchulatorGrid.Pods
             get { return _assumptions != null && _assumptions.Any(); }
         }
 
+        public string QueryRaw
+        {
+            get { return _query; }
+            set { Query = value; }
+        }
+
         public string Query
         {
             get { return '\u201c' + _query + '\u201d'; }
@@ -118,7 +124,7 @@ namespace SearchulatorGrid.Pods
 
         private void BuildUrl()
         {
-            _url = ApiUrl + "input=" + Uri.EscapeDataString(_query) + "&mag=1.6";
+            _url = ApiUrl + "input=" + Uri.EscapeDataString(_query) + "&mag=1"; //1.6
 
             if (_assumptions != null)
             {
@@ -157,7 +163,7 @@ namespace SearchulatorGrid.Pods
                 Working = false;
                 return this;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 if (_pods == null)
                 {

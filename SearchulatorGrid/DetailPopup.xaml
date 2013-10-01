@@ -75,7 +75,7 @@
         <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1" Click="CloseButton_Click" />
         -->
 
-        <Grid Background="White">
+        <Grid Background="LightGray">
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
                 <RowDefinition/>
@@ -90,7 +90,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" />
+                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource RedBackButtonStyle}" />
                 <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{Binding Title}" Style="{StaticResource PageHeaderTextStyle}" />
 
             </Grid>
@@ -105,17 +105,38 @@
                     Margin="10,0,0,0"
                     Padding="0,0,0,60"
                     IsSwipeEnabled="false"
-                    IsItemClickEnabled="True"
+                    IsItemClickEnabled="False"
                     ItemsSource="{Binding Images}"
                     SelectedIndex="{Binding CurrentIndex, Mode=TwoWay}"
                     SelectionChanged="Selection_Changed">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid x:Name="ImageGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="10000" MinHeight="48" >
+                        <Grid x:Name="ImageGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="10000" MinHeight="48" Height="{Binding PaddedHeight, Mode=OneTime}"  >
                             <Grid.Background>
                                 <SolidColorBrush Color="White" />
                             </Grid.Background>
-                            <Image x:Name="img" q42controls:ImageExtensions.CacheUri="{Binding URL}" Width="{Binding Width}" Height="{Binding Height}" Margin="20,5,20,5" HorizontalAlignment="Left" VerticalAlignment="Center" RightTapped="ShowImageMenu_RightTap" />
+                            <ScrollViewer 
+                            MinZoomFactor=".5"
+                            MaxZoomFactor="2"
+                            ZoomSnapPointsType="Optional"
+                            HorizontalScrollMode="Disabled"
+                            HorizontalScrollBarVisibility="Auto" 
+                                VerticalScrollMode="Disabled"
+                            VerticalScrollBarVisibility="Auto" 
+                            ZoomMode="Enabled"
+                            Tapped="ShowImageMenu_Tapped" ViewChanged="OnScrollViewerManipulated" 
+                            
+                            >
+                                <Image x:Name="img" 
+                                       q42controls:ImageExtensions.CacheUri="{Binding URL}" 
+                                       Width="{Binding Width, Mode=OneTime}" 
+                                       Height="{Binding Height, Mode=OneTime}" 
+                                       Margin="20,5,20,5" 
+                                       HorizontalAlignment="Left" 
+                                       VerticalAlignment="Top" 
+                                       RightTapped="ShowImageMenu_RightTap"
+                                       Tapped="ShowImageMenu_Tapped" />
+                            </ScrollViewer>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -164,23 +185,27 @@
                     <!-- List of states (metric, more digits, etc)-->
                     <!-- Wolfram Link-->
                 </StackPanel>
-                <ItemsControl 
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource GlobeAppBarButtonStyle}" Click="ShowInfo" AutomationProperties.Name="Show Info" Name="ShowInfoBtn" Visibility="{Binding HasInfos, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Left"/>
+                    <ItemsControl 
                         x:Name="states"
                         TabIndex="1"
                         Margin="10,0,0,0"
                         Padding="0,0,0,60"
                         ItemsSource="{Binding States}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Style="{StaticResource MoreAppBarButtonStyle}" AutomationProperties.Name="{Binding Name}" Click="ApplyState" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource MoreAppBarButtonStyle}" AutomationProperties.Name="{Binding Name}" Click="ApplyState" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                
             </Grid>
         </AppBar>
     </Page.BottomAppBar>

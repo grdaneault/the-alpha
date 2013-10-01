@@ -11,7 +11,8 @@ using Windows.UI.Xaml.Documents;
 namespace SearchulatorGrid.Common
 {
     /// <summary>
-    /// Wrapper for <see cref="RichTextBlock"/> that creates as many additional overflow
+    /// Wrapper for <see cref="
+    /// Block"/> that creates as many additional overflow
     /// columns as needed to fit the available content.
     /// </summary>
     /// <example>

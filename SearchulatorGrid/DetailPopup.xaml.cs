@@ -11,6 +11,8 @@ using Windows.UI.Xaml.Media;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using SearchulatorGrid.Pods;
+using Q42.WinRT.Data;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -24,6 +26,7 @@ namespace SearchulatorGrid
         public DetailPopup()
         {
             InitializeComponent();
+
         }
 
         public Pod SelectedPod
@@ -110,7 +113,7 @@ namespace SearchulatorGrid
                 {
                     DependencyObject child = VisualTreeHelper.GetChild(current, i);
                     if (child is FrameworkElement)
-                        tree.Push((FrameworkElement)child);
+                        tree.Push((FrameworkElement) child);
                 }
             }
 
@@ -132,7 +135,7 @@ namespace SearchulatorGrid
             Flyout f = new Flyout();
             f.PlacementTarget = sender as UIElement;
             f.Placement = PlacementMode.Top;
-            
+
             f.HostMargin = new Thickness(0); // on menu flyouts set HostMargin to 0
             f.Content = CopyMenu;
             f.IsOpen = true;
@@ -146,9 +149,9 @@ namespace SearchulatorGrid
             var image = SelectedPod.CurrentImage;
 
             var uri = await Q42.WinRT.Data.WebDataCache.GetLocalUriAsync(new Uri(image.URL));
-            
+
             var m = sender as MenuItem;
-            switch(m.Text)
+            switch (m.Text)
             {
                 case COPY_IMAGE:
                     dataPackage.SetBitmap(RandomAccessStreamReference.CreateFromUri(uri));
@@ -172,6 +175,7 @@ namespace SearchulatorGrid
 
         private void Selection_Changed(object sender, SelectionChangedEventArgs e)
         {
+            /*
             if (resultsListView.SelectedItem == null)
             {
                 ImageOptionsAppBar.IsSticky = false;
@@ -182,14 +186,20 @@ namespace SearchulatorGrid
                 ImageOptionsAppBar.IsSticky = true;
                 ImageOptionsAppBar.IsOpen = true;
             }
+             * */
         }
 
         private void ShowImageMenu_RightTap(object sender, RightTappedRoutedEventArgs e)
         {
-
+            ShowImageMenu(sender, e.OriginalSource as UIElement);
+            e.Handled = true;
+        }
+        
+        private void ShowImageMenu(object sender, UIElement placementTarget)
+        {
             for (int i = 0; i < SelectedPod.Images.Count(); i++)
             {
-                ListViewItem lvi =  resultsListView.ItemContainerGenerator.ContainerFromItem(SelectedPod.Images.ElementAt(i)) as ListViewItem ;
+                ListViewItem lvi = resultsListView.ItemContainerGenerator.ContainerFromItem(SelectedPod.Images.ElementAt(i)) as ListViewItem;
                 if (sender == FindByName("img", lvi))
                 {
                     resultsListView.SelectionMode = ListViewSelectionMode.Single;
@@ -199,8 +209,8 @@ namespace SearchulatorGrid
             }
 
             var f = new Flyout();
-            f.PlacementTarget = e.OriginalSource as UIElement;
-            f.Placement = PlacementMode.Top;
+            f.PlacementTarget = placementTarget;
+            f.Placement = PlacementMode.Right;
 
 
             f.HostMargin = new Thickness(0); // on menu flyouts set HostMargin to 0
@@ -217,8 +227,6 @@ namespace SearchulatorGrid
 
             f.Content = m;
             f.IsOpen = true;
-
-            e.Handled = true;
         }
 
         private async void OpenURL(object sender, TappedRoutedEventArgs e)
@@ -229,7 +237,11 @@ namespace SearchulatorGrid
 
         private static async System.Threading.Tasks.Task<bool> OpenImageInBrowser(ImageResult img)
         {
-            var uri = new Uri(img.URL);
+            return await OpenUriInBrowser(new Uri(img.URL));
+        }
+
+        private static async System.Threading.Tasks.Task<bool> OpenUriInBrowser(Uri uri)
+        {
             var success = await Windows.System.Launcher.LaunchUriAsync(uri);
             return success;
         }
@@ -240,7 +252,138 @@ namespace SearchulatorGrid
             State state = b.DataContext as State;
             await SelectedPod.Result.ApplyState(state);
             SelectedPod = (from pod in SelectedPod.Result.Pods where pod.Id == SelectedPod.Id select pod).First();
+            
+            _infoFlyout = null; // Force a refresh of the info popup in case there are any new ones
+        }
 
+        private Flyout _infoFlyout;
+        private async void ShowInfo(object sender, RoutedEventArgs e)
+        {
+            if (_infoFlyout == null)
+            {
+                Flyout flyout = new Flyout();
+                // creating some content
+                // this could be just an instance of a UserControl of course
+                Border border = new Border();
+                ScrollViewer scroll = new ScrollViewer();
+                scroll.MaxHeight = 600;
+                scroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+
+                border.BorderThickness = new Thickness(5);
+                border.Margin = new Thickness(-5);
+                StackPanel infoPanel = new StackPanel();
+                infoPanel.Orientation = Orientation.Vertical;
+
+                Menu infoMenu = new Menu();
+                foreach (var info in SelectedPod.Infos)
+                {
+                    if (info.HasImage)
+                    {
+                        ImageMenuItem imi = new ImageMenuItem();
+                        imi.ImgSource = info.Image.URL;
+                        imi.ImgWidth  = info.Image.Width;
+                        imi.ImgHeight = info.Image.Height;
+                        imi.Tag = info;
+                        imi.Tapped += showInfoMenu;
+                        imi.UpdateLayout();
+                        infoMenu.Items.Add(imi);
+                    }
+                    else
+                    {
+                        if (infoMenu.Items.Count > 0)
+                        {
+                            infoMenu.Items.Add(new MenuItemSeparator());
+                        }
+
+                        MenuItem more = new MenuItem();
+                        more.Text = info.Links[0].Text;
+                        more.Tag = info.Links[0].Uri;
+                        more.Tapped += infoMI_tapped;
+                        infoMenu.Items.Add(more);
+                    }
+                }
+
+                border.Child = scroll;
+                scroll.Content = infoMenu;
+
+                // set the Flyout content
+                flyout.Content = border;
+                //flyout.
+
+                //b.Child = container;
+                //filters.Content = b;
+                flyout.PlacementTarget = ShowInfoBtn;
+                flyout.Placement = Windows.UI.Xaml.Controls.Primitives.PlacementMode.Top;
+                flyout.IsOpen = true;
+                //f.Background = new SolidColorBrush(Colors.Black);
+                _infoFlyout = flyout;
+            }
+            else
+            {
+                _infoFlyout.IsOpen = true;
+            }
+        }
+
+        private void showInfoMenu(object sender, TappedRoutedEventArgs e)
+        {
+            var imi = sender as ImageMenuItem;
+            Info info = imi.Tag as Info;
+            Menu menu = createInfoMenu(info);
+            var f = new Flyout();
+            f.PlacementTarget = e.OriginalSource as UIElement;
+            f.Placement = PlacementMode.Right;
+            f.Content = menu;
+            f.HostMargin = new Thickness(0); // on menu flyout
+            f.IsOpen = true;
+        }
+
+        private Menu createInfoMenu(Info info)
+        {
+            var menu = new Menu();
+
+            foreach (var link in info.Links)
+            {
+                var mi = new MenuItem();
+                mi.Tag = link.Uri;
+                mi.Tapped += infoMI_tapped;
+                mi.Text = link.Text;
+                mi.MenuTextMargin = new Thickness(28, 10, 28, 12);
+                menu.Items.Add(mi);
+            }
+
+            return menu;
+
+        }
+
+        private void infoMI_tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var mi = sender as MenuItem;
+            OpenUriInBrowser(mi.Tag as Uri);
+        }
+
+        private void ShowImageMenu_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ShowImageMenu(sender, e.OriginalSource as UIElement);
+            e.Handled = true;
+        }
+
+        private void OnScrollViewerManipulated(object sender, ManipulationDeltaRoutedEventArgs e)
+        {/*
+            if (e.Delta.Scale != 0)
+            {
+                //e.Handled = true;
+                var im = sender as Image;
+                var imResult = im.DataContext as ImageResult;
+                im.Height = imResult.Height * e.Delta.Scale + 10;
+            }*/
+        }
+
+        private void OnScrollViewerManipulated(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            var sv = sender as ScrollViewer;
+            sv.Height = sv.ExtentHeight;
+            Grid gv = sv.Parent as Grid;
+            gv.Height = sv.ExtentHeight;
         }
     }
 }

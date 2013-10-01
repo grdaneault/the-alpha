@@ -4,6 +4,7 @@ using Windows.ApplicationModel.Search;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234233
 
@@ -29,7 +30,7 @@ namespace SearchulatorGrid
             DefaultViewModel["Characters"] = characterList;*/
             SearchPane.GetForCurrentView().SuggestionsRequested +=
                 new TypedEventHandler<SearchPane, SearchPaneSuggestionsRequestedEventArgs>(Results_SuggestionsRequested);
-
+            //Q42.WinRT.Data.WebDataCache.ClearAll();
             SearchPane.GetForCurrentView().ShowOnKeyboardInput = false; // Turn off searching by typing from main window
         }
 
@@ -106,17 +107,35 @@ namespace SearchulatorGrid
             this.DefaultViewModel["Items"] = pods;*/
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var text = e.Parameter as string;
+            if (text != null)
+            {
+                QueryBox.Text = text;
+            }
+
+            base.OnNavigatedTo(e);
+        }
+
         private void CycleImages(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof (Results), "pi");
         }
 
+        private bool focusedQueryBox = false;
         private void AddCharacter(object sender, RoutedEventArgs e)
         {
             var character = sender as Button;
+            
             QueryBox.Text += character.Content;
-            QueryBox.Focus(FocusState.Pointer);
-            QueryBox.Select(QueryBox.Text.Length, 0);
+
+            
+            if (focusedQueryBox)
+            {
+                QueryBox.Focus(FocusState.Pointer);
+                QueryBox.Select(QueryBox.Text.Length, 0);
+            }
         }
 
         private void AddCharacter(object sender, ItemClickEventArgs e)
@@ -134,6 +153,7 @@ namespace SearchulatorGrid
 
         private void RunSearch(object sender, RoutedEventArgs e)
         {
+            Q42.WinRT.Data.WebDataCache.ClearAll();
             RunSearch(QueryBox.Text);
         }
 

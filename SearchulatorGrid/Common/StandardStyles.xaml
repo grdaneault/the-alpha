@@ -878,11 +878,13 @@
         <Setter Property="AutomationProperties.Name" Value="Volume"/>
         <Setter Property="Content" Value="&#xE15D;"/>
     </Style>
+    -->
     <Style x:Key="RepairAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="RepairAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Repair"/>
         <Setter Property="Content" Value="&#xE15E;"/>
     </Style>
+    <!--
     <Style x:Key="MessageAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="MessageAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Message"/>
@@ -961,11 +963,13 @@
         <Setter Property="AutomationProperties.Name" Value="Paste"/>
         <Setter Property="Content" Value="&#xE16D;"/>
     </Style>
+    -->
     <Style x:Key="FilterAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="FilterAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Filter"/>
         <Setter Property="Content" Value="&#xE16E;"/>
     </Style>
+    <!--
     <Style x:Key="CopyAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="CopyAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Copy"/>

@@ -209,7 +209,7 @@ namespace SearchulatorGrid.Pods
         private bool tryFillSingleColumn()
         {
             List<Pod> singles = new List<Pod>();
-            for (int r = 0; r < MaxCols; r++)
+            for (int r = 0; r < MaxRows; r++)
             {
                 for (int c = 0; c < MaxCols; c++)
                 {
@@ -218,7 +218,10 @@ namespace SearchulatorGrid.Pods
 
                         if (Grid[r, c].ColSpan == 1)
                         {
-                            singles.Add(Grid[r, c]);
+                            if (!singles.Contains(Grid[r, c]))
+                            {
+                                singles.Add(Grid[r, c]);
+                            }
                         }
                         else
                         {

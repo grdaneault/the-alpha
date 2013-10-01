@@ -39,6 +39,16 @@ namespace SearchulatorGrid.Pods
             set { if (SetProperty(ref _selectedIndex, value)) OnPropertyChanged(); }
         }
 
+        public string SelectedWord
+        {
+            get { return Values[_selectedIndex];  }
+            set
+            {
+                int i = Values.IndexOf(value);
+                if (i >= 0) SelectedIndex = i;
+            }
+        }
+
 
         public string Type { get; private set; }
         public string Word { get; private set; }
@@ -55,6 +65,8 @@ namespace SearchulatorGrid.Pods
             DescriptionBefore = other.DescriptionBefore;
 
         }
+
+        
 
         public Assumption(XElement source)
         {
@@ -159,7 +171,7 @@ namespace SearchulatorGrid.Pods
 
         public AssumptionValue(XElement val)
         {
-            Description = val.Attribute("desc").Value;
+            Description = val.Attribute("desc").Value.Trim();
             Input = val.Attribute("input").Value;
             Name = val.Attribute("name").Value;
         }

@@ -40,6 +40,7 @@ namespace SearchulatorGrid.Pods
         private List<ImageResult> _images;
         private int _currentIndex;
         private int _numSubpods;
+        
 
         public List<ImageResult> Images
         {
@@ -56,6 +57,7 @@ namespace SearchulatorGrid.Pods
             get { return _numSubpods; }
         }
 
+      
         public ImageResult CurrentImage
         {
             get { return _images.Count == 0 ? null : _images[CurrentIndex]; }
@@ -86,13 +88,34 @@ namespace SearchulatorGrid.Pods
             get { return _numStates; }
         }
 
+        
+        // Infos
+        private int _numInfos;
+        private List<Info> _infos;
+
+        public List<Info> Infos 
+        {
+            get { return _infos; }
+            private set { _infos = value; }
+        }
+
+        public int NumInfos
+        {
+            get { return _numInfos; }
+        }
+
+        public bool HasInfos
+        {
+            get { return _numInfos > 0; }
+        }
+
 
         // Header Block
         private string _title;
 
         public string Title
         {
-            get { return _title + " (" + CurrentImage.SnappedWidth + "x" + CurrentImage.SnappedHeight + ")"; }
+            get { return _title/* + " (" + CurrentImage.SnappedWidth + "x" + CurrentImage.SnappedHeight + ")" */; }
             set { if (SetProperty(ref _title, value)) OnPropertyChanged(); }
         }
 
@@ -255,7 +278,24 @@ namespace SearchulatorGrid.Pods
                 i.Owner = this;
                 _images.Add(i);
             }
-
+            
+            XElement infos = source.Element("infos");
+            if (infos != null)
+            {
+                _numInfos = int.Parse(infos.Attribute("count").Value);
+                _infos = new List<Info>(_numInfos);
+                foreach (XElement info in infos.Elements("info"))
+                {
+                    Info i = new Info(info);
+                    _infos.Add(i);
+                }
+            }
+            else 
+            {
+                _infos = new List<Info>(0);
+                _numInfos = 0;
+            }
+            
             XElement statesNode = source.Element("states");
             if (statesNode != null)
             {
@@ -280,13 +320,13 @@ namespace SearchulatorGrid.Pods
 
         private int CalcRowSpan(int height)
         {
-            int rows = (int) Math.Ceiling((double) (height) / GridSizeRow);
+            int rows = (int) Math.Ceiling((double) (height + 10) / GridSizeRow);
             return (rows < 1) ? 1 : ((rows > MaxRows) ? MaxRows : rows);
         }
 
         private int CalcColSpan(int width)
         {
-            int cols = (int) Math.Ceiling((double) (width + 10) / GridSizeCol);
+            int cols = (int) Math.Ceiling((double) (width + 20) / GridSizeCol);
             //return (rows < 1) ? 1 : ((rows > MAX_COLS) ? MAX_COLS : rows);
             return (cols > 1) ? 2 : 1;
         }
