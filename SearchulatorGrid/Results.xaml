@@ -84,8 +84,8 @@
                             ZoomMode="Enabled"
                             DoubleTapped="CycleZoomLevels"
                             >
-                            
-                        <Image
+
+                            <Image
                             x:Name="ImageView"
                             q42Controls:ImageExtensions.CacheUri="{Binding CurrentImage.URL}"
                             Width="{Binding CurrentImage.Width}"
@@ -169,14 +169,24 @@
                                                      Padding="0,0,0,0"
                                                      Background="White">
                                         <Border x:Name="HoverMask" Background="White" Width="{Binding ImageAreaWidth}" Height="{Binding ImageAreaHeight}" Margin="2, 2">
-                                            <Image x:Name="FlipImage"
-                                               q42Controls:ImageExtensions.CacheUri="{Binding URL}"
-                                               Width="{Binding Width}"
-                                               Height="{Binding Height}"
-                                               Margin="0,0,0,0"
-                                               Stretch="Fill"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                                            <ScrollViewer 
+                                                MinZoomFactor=".5"
+                                                MaxZoomFactor="2"
+                                                ZoomSnapPointsType="Optional"
+                                                HorizontalScrollBarVisibility="Auto" 
+                                                VerticalScrollBarVisibility="Auto" 
+                                                ZoomMode="Enabled"
+                                                DoubleTapped="CycleZoomLevels"
+                                                >
+                                                <Image x:Name="FlipImage"
+                                                   q42Controls:ImageExtensions.CacheUri="{Binding URL}"
+                                                   Width="{Binding Width}"
+                                                   Height="{Binding Height}"
+                                                   Margin="0,0,0,0"
+                                                   Stretch="Fill"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                            </ScrollViewer>
                                         </Border>
                                     </local:PodButton>
                                 </Grid>
@@ -229,7 +239,9 @@
                         Width="300"
                         Margin="0,0,0,0"
                         VerticalAlignment="Top"
-                        Grid.Row="1" />
+                        Grid.Row="1"
+                        
+                        UseStaticAnchor="True"/>
 
                 </Grid>
             </Grid>
@@ -323,7 +335,7 @@
                 Style="{StaticResource PageSubheaderTextStyle}" Height="30" />
             <Button x:Name="QueryText" Style="{StaticResource TextButtonStyle}"  Tapped="ShowFilters" FontSize="26.667" Margin="0,72,0,36" VerticalAlignment="Center" Grid.Column="3">
                 <StackPanel Orientation="Horizontal">
-                        <!--<TextBlock Text="{Binding Query, Mode=OneWay}" />-->
+                    <!--<TextBlock Text="{Binding Query, Mode=OneWay}" />-->
                     <TextBlock 
                         Text="{Binding Query, Mode=OneWay}"
                         Style="{StaticResource PageSubheaderTextStyle}" 
@@ -354,32 +366,38 @@
             The body of the page in most view states uses an items controls to create multiple radio buttons
             for filtering above a horizontal scrolling grid of search results
         -->
-            <ItemsControl
+            <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal">
+                    <ItemsControl
                 x:Name="FiltersItemsControl"
-                Canvas.ZIndex="1"
                 ItemsSource="{Binding Source={StaticResource AssumptionsViewSource}}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
                 Visibility="Collapsed"
                 Margin="120,-3,120,631">
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                            <TextBlock Text="{Binding DescriptionBefore}"
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                                    <TextBlock Text="{Binding DescriptionBefore}"
                                 Style="{StaticResource GroupHeaderTextStyle}" />
-                            <ComboBox ItemsSource="{Binding Values}"
+                                    <ComboBox ItemsSource="{Binding Values}"
                                 SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" Margin="10,5,10,0"
                                 SelectionChanged="AssumptionSet"/>
-                            <TextBlock Text="{Binding DescriptionAfter}"
+                                    <TextBlock Text="{Binding DescriptionAfter}"
                                 Style="{StaticResource GroupHeaderTextStyle}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </StackPanel>
+            </ScrollViewer>
             <!--
             The body of the page in most view states uses an items controls to create multiple radio buttons
             for filtering above a horizontal scrolling grid of search results

@@ -49,11 +49,6 @@ namespace SearchulatorGrid.Pods
                     pods.RemoveAt(0);
                 }
 
-                if (pods.Count > 0 && pods[0].Squashed && col.Place(pods[0], pods[0].RowSpan - 2, pods[0].ColSpan))
-                {
-                    pods.RemoveAt(0);
-                }
-
                 col.FillOut(false); //pods.Count == 0 && !first);
                 first = false;
                 sized.AddRange(col.GenerateFinalList());

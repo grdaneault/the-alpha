@@ -89,12 +89,6 @@ namespace SearchulatorGrid
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             SelectedPod = navigationParameter as Pod;
-
-            if (SelectedPod != null && SelectedPod.NumSubpods == 1)
-            {
-                ImageOptionsAppBar.IsSticky = true;
-                ImageOptionsAppBar.IsOpen = true;
-            }
         }
 
         private static FrameworkElement FindByName(string name, FrameworkElement root)

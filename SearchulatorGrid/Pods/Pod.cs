@@ -40,16 +40,19 @@ namespace SearchulatorGrid.Pods
         private List<ImageResult> _images;
         private int _currentIndex;
         private int _numSubpods;
-        
+
 
         public List<ImageResult> Images
         {
             get { return _images; }
-            set { if (SetProperty(ref _images, value))
+            set
             {
-                OnPropertyChanged();
-                _numSubpods = _images.Count;
-            } }
+                if (SetProperty(ref _images, value))
+                {
+                    OnPropertyChanged();
+                    _numSubpods = _images.Count;
+                }
+            }
         }
 
         public int NumSubpods
@@ -57,7 +60,7 @@ namespace SearchulatorGrid.Pods
             get { return _numSubpods; }
         }
 
-      
+
         public ImageResult CurrentImage
         {
             get { return _images.Count == 0 ? null : _images[CurrentIndex]; }
@@ -76,11 +79,14 @@ namespace SearchulatorGrid.Pods
         public List<State> States
         {
             get { return _states; }
-            set { if (SetProperty(ref _states, value))
+            set
             {
-                _numStates = _states.Count;
-                OnPropertyChanged();
-            } }
+                if (SetProperty(ref _states, value))
+                {
+                    _numStates = _states.Count;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public int NumStates
@@ -88,12 +94,17 @@ namespace SearchulatorGrid.Pods
             get { return _numStates; }
         }
 
-        
+        public bool HasStates
+        {
+            get { return _numStates > 0; }
+        }
+
+
         // Infos
         private int _numInfos;
         private List<Info> _infos;
 
-        public List<Info> Infos 
+        public List<Info> Infos
         {
             get { return _infos; }
             private set { _infos = value; }
@@ -107,6 +118,11 @@ namespace SearchulatorGrid.Pods
         public bool HasInfos
         {
             get { return _numInfos > 0; }
+        }
+
+        public bool HasAppBar
+        {
+            get { return HasInfos || HasStates; }
         }
 
 
@@ -278,7 +294,7 @@ namespace SearchulatorGrid.Pods
                 i.Owner = this;
                 _images.Add(i);
             }
-            
+
             XElement infos = source.Element("infos");
             if (infos != null)
             {
@@ -290,12 +306,12 @@ namespace SearchulatorGrid.Pods
                     _infos.Add(i);
                 }
             }
-            else 
+            else
             {
                 _infos = new List<Info>(0);
                 _numInfos = 0;
             }
-            
+
             XElement statesNode = source.Element("states");
             if (statesNode != null)
             {
