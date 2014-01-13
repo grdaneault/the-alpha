@@ -109,145 +109,158 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}" RenderTransformOrigin="0.5,0.5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="140"/>
-            <RowDefinition Height="140"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Assets/Backgrounds/fractal-165891-flip.png"
-                    Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Top"/>
-        </Grid.Background>
-        <!--
-        <GridView
-            x:Name="itemGridView"
-            AutomationProperties.AutomationId="ItemsGridView"
-            AutomationProperties.Name="Items"
-            TabIndex="1"
-            Grid.RowSpan="2"
-            Padding="116,136,116,46"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource Standard250x250ItemTemplate}"
-            SelectionMode="None"
-            IsSwipeEnabled="false"/>
--->
-
-        <VisualStateManager.VisualStateGroups>
-
-            <!-- Visual states reflect the application's view state -->
-            <VisualStateGroup x:Name="ApplicationViewStates">
-                <VisualState x:Name="FullScreenLandscape"/>
-                <VisualState x:Name="Filled"/>
+    <Grid>
+    	<Grid.Background>
+    		<ImageBrush Stretch="Fill" ImageSource="Assets/Backgrounds/abstract-19731_1920.jpg"/>
+    	</Grid.Background>
+		<VisualStateManager.VisualStateGroups>
+<!-- Visual states reflect the application's view state -->
+			<VisualStateGroup x:Name="ApplicationViewStates">
+				<VisualState x:Name="FullScreenLandscape"/>
+				<VisualState x:Name="Filled"/>
 
                 <!-- The entire page respects the narrower 100-pixel margin convention for portrait -->
-                <VisualState x:Name="FullScreenPortrait">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
+				<VisualState x:Name="FullScreenPortrait">
+					<Storyboard>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
+						</ObjectAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
 
                 <!--
                     The back button and title have different styles when snapped, and the list representation is substituted
                     for the grid displayed in all other view states
                 -->
-                <VisualState x:Name="Snapped">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
+				<VisualState x:Name="Snapped">
+					<Storyboard>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedRedBackButtonStyle}"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+						</ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="QueryBox">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Thickness>10,0</Thickness>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="QueryBox">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <x:Double>28</x:Double>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-                        <DoubleAnimation Duration="0" Storyboard.TargetProperty="(Control.FontSize)" Storyboard.TargetName="QueryBox" d:IsOptimized="True" To="16"/>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="button">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Thickness>0,56,0,0</Thickness>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Row)" Storyboard.TargetName="button">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <x:Int32>0</x:Int32>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.RowSpan)" Storyboard.TargetName="button">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <x:Int32>1</x:Int32>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SnappedKeys" d:IsOptimized="True"/>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Visibility>Collapsed</Visibility>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SnappedKeys">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Visibility>Visible</Visibility>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="QueryBox">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<Thickness>10,0</Thickness>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="QueryBox">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<x:Double>42</x:Double>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="button">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<Thickness>0,8,18,0</Thickness>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Row)" Storyboard.TargetName="button">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<x:Int32>1</x:Int32>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.RowSpan)" Storyboard.TargetName="button">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<x:Int32>1</x:Int32>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SnappedKeys" d:IsOptimized="True"/>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<Visibility>Collapsed</Visibility>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SnappedKeys">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<Visibility>Visible</Visibility>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="KeyboardSelection">
+							<DiscreteObjectKeyFrame KeyTime="0">
+								<DiscreteObjectKeyFrame.Value>
+									<Visibility>Collapsed</Visibility>
+								</DiscreteObjectKeyFrame.Value>
+							</DiscreteObjectKeyFrame>
+						</ObjectAnimationUsingKeyFrames>
+						<DoubleAnimation Duration="0" To="21.333" Storyboard.TargetProperty="(Control.FontSize)" Storyboard.TargetName="QueryBox" d:IsOptimized="True"/>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBox.Text)" Storyboard.TargetName="QueryBox">
+							<DiscreteObjectKeyFrame KeyTime="0" Value=""/>
+						</ObjectAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+		<Canvas VerticalAlignment="Bottom" Margin="0,0,700,700" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+            <Canvas.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition FromHorizontalOffset="100" FromVerticalOffset="0"  />
+                </TransitionCollection>
+            </Canvas.ChildrenTransitions>
+    		<Path Data="M100,100 L100,0 0,100" Fill="#95E00000" HorizontalAlignment="Left" Height="700" Stretch="Fill" StrokeThickness="8" UseLayoutRounding="False" VerticalAlignment="Top" Width="700" RenderTransformOrigin="0.5,0.5" Margin="0" />
+    		<Path Data="M100,100 L100,0 0,100" Fill="#856E0000" HorizontalAlignment="Left" Height="575" Stretch="Fill" StrokeThickness="8" UseLayoutRounding="False" VerticalAlignment="Top" Width="575" RenderTransformOrigin="0.5,0.5" Margin="125,125,0,0" />
+    	</Canvas>
+		<Canvas Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Canvas.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition FromHorizontalOffset="-100" FromVerticalOffset="0" />
+                </TransitionCollection>
+            </Canvas.ChildrenTransitions>
+            <Path Data="M0,0 L100,0 0,100" HorizontalAlignment="Left" Height="580" Margin="0" Stretch="Fill" StrokeThickness="8" UseLayoutRounding="False" VerticalAlignment="Top" Width="580" Fill="#D7BF0000"/>
+    	</Canvas>
+		<Grid Style="{StaticResource LayoutRootStyle}" RenderTransformOrigin="0.5,0.5" Background="{x:Null}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="140"/>
+				<RowDefinition Height="140"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
 
-        <!-- Horizontal scrolling grid used in most view states -->
-        <!-- Vertical scrolling list only used when snapped -->
-        <ListView
-            x:Name="itemListView"
-            AutomationProperties.AutomationId="ItemsListView"
-            AutomationProperties.Name="Items"
-            TabIndex="1"
-            Grid.Row="1"
-            Visibility="Collapsed"
-            Margin="0,-10,0,0"
-            Padding="10,0,0,60"
-            ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
-            ItemTemplate="{StaticResource Standard80ItemTemplate}"
-            SelectionMode="None"
-            IsSwipeEnabled="false"/>
+			<!-- Horizontal scrolling grid used in most view states -->
+<!-- Vertical scrolling list only used when snapped -->
+			<ListView
+				x:Name="itemListView"
+				AutomationProperties.AutomationId="ItemsListView"
+				AutomationProperties.Name="Items"
+				TabIndex="1"
+				Grid.Row="1"
+				Visibility="Collapsed"
+				Margin="0,-10,0,0"
+				Padding="10,0,0,60"
+				ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
+				ItemTemplate="{StaticResource Standard80ItemTemplate}"
+				SelectionMode="None"
+				IsSwipeEnabled="false"/>
 
-        <!-- Back button and page title -->
-        <Grid x:Name="FullKeys">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource RedBackButtonStyle}" />
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}" Foreground="#DEFFFFFF"/>
-        </Grid>
-        <TextBox x:Name="QueryBox" HorizontalAlignment="Stretch" Margin="120,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" Height="64" KeyDown="SearchKeyDownHandler" />
-        <!--<GridView ItemsSource="{Binding Characters}" Grid.Row="1" ItemClick="AppendCharacter" Height="500" >
+<!-- Back button and page title -->
+			<Grid x:Name="FullKeys" Margin="3,0,-3,0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource RedBackButtonStyle}" />
+				<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}" Foreground="#DEFFFFFF"/>
+			</Grid>
+			<TextBox x:Name="QueryBox" HorizontalAlignment="Stretch" Margin="120,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" Height="64" KeyDown="SearchKeyDownHandler" />
+<!--<GridView ItemsSource="{Binding Characters}" Grid.Row="1" ItemClick="AppendCharacter" Height="500" >
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Button Click="AddCharacter" Content="{Binding Character}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
@@ -255,237 +268,238 @@
             </GridView.ItemTemplate>
 
         </GridView>-->
-        <FlipView Grid.Row="2" x:Name="KeyboardSelection">
+			<FlipView Grid.Row="2" x:Name="KeyboardSelection">
 
 
-            <Grid x:Name="StandardKeys" HorizontalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
-                    <Button Click="AddCharacter" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="7" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="8" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="9" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-                    <Button Click="AddCharacter" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="-" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="*" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="/" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="^" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="=" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="&amp;" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="!" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="|" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="\" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-                    <Button Click="AddCharacter" Content="A" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="B" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="C" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="D" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="E" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="F" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="G" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="H" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="I" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="J" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="K" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="L" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="M" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
-                    <Button Click="AddCharacter" Content="N" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="O" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="P" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Q" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="R" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="S" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="T" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="U" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="V" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="W" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="X" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Y" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Z" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center">
-                    <Button Click="AddCharacter" Content="&lt;" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="[" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="{}{" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content=" " HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="{}}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="]" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                </StackPanel>
+				<Grid x:Name="StandardKeys" HorizontalAlignment="Center">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="50" />
+						<RowDefinition Height="50" />
+						<RowDefinition Height="50" />
+						<RowDefinition Height="50" />
+						<RowDefinition Height="50" />
+					</Grid.RowDefinitions>
+					<StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
+						<Button Click="AddCharacter" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="7" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="8" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="9" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+						<Button Click="AddCharacter" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="-" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="*" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="/" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="^" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="=" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="&amp;" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="!" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="|" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="\" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+						<Button Click="AddCharacter" Content="A" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="B" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="C" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="D" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="E" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="F" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="G" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="H" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="I" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="J" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="K" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="L" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="M" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+						<Button Click="AddCharacter" Content="N" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="O" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="P" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Q" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="R" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="S" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="T" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="U" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="V" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="W" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="X" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Y" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Z" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center">
+						<Button Click="AddCharacter" Content="&lt;" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="[" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="{}{" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content=" " HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="]" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+					</StackPanel>
                 
-            </Grid>
+				</Grid>
 
-            <Grid x:Name="grid" Grid.Row="2" HorizontalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
-                    <Button Click="AddCharacter" Content="π" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="°" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∞" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="√" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∫" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∮" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∑" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∂" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∏" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∀" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∃" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="⋃" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="⋂" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∇" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="∆" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-                    <Button Click="AddCharacter" Content="α" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="β" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="γ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="δ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="ε" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="ζ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="η" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="θ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="κ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="λ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="μ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="ν" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="ξ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="ρ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="σ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-                    <Button Click="AddCharacter" Content="τ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="φ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="χ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="ψ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="ω" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Γ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Θ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Λ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Ξ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Υ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Φ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Ψ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
-                    <Button Click="AddCharacter" Content="Ω" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="℧" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="Å" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="ℏ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="ℵ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="⇋" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="→" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="⊕" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="⊙" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                    <Button Click="AddCharacter" Content="†" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
-                </StackPanel>
-            </Grid>
-        </FlipView>
-        <Button x:Name="button" Margin="0,11,131,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right"  Style="{StaticResource RedAppButtonStyle}" Click="RunSearch" Content="&#xE11A;"/>
-        <!-- Filter: &#xE16E; -->
+				<Grid x:Name="grid" Grid.Row="2" HorizontalAlignment="Center">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="50" />
+						<RowDefinition Height="50" />
+						<RowDefinition Height="50" />
+						<RowDefinition Height="50" />
+					</Grid.RowDefinitions>
+					<StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
+						<Button Click="AddCharacter" Content="π" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="°" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∞" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="√" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∫" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∮" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∑" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∂" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∏" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∀" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∃" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="⋃" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="⋂" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∇" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="∆" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+						<Button Click="AddCharacter" Content="α" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="β" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="γ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="δ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="ε" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="ζ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="η" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="θ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="κ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="λ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="μ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="ν" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="ξ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="ρ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="σ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+						<Button Click="AddCharacter" Content="τ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="φ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="χ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="ψ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="ω" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Γ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Θ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Λ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Ξ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Υ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Φ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Ψ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+						<Button Click="AddCharacter" Content="Ω" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="℧" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="Å" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="ℏ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="ℵ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="⇋" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="→" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="⊕" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="⊙" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+						<Button Click="AddCharacter" Content="†" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Style="{StaticResource RedCharacterButton}"/>
+					</StackPanel>
+				</Grid>
+			</FlipView>
+			<Button x:Name="button" Margin="0,11,131,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right"  Style="{StaticResource RedSnappedAppButtonStyle}" Click="RunSearch" Content="&#xE11A;"/>
+<!-- Filter: &#xE16E; -->
 
-        <Grid x:Name="SnappedKeys" Grid.Row="2" HorizontalAlignment="Center" Opacity="0" Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
-                <Button Click="AddCharacter" Content="π" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="°" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="∞" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="√" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="∫" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="∮" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-                <Button Click="AddCharacter" Content="∑" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="∂" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="∏" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="∀" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="∃" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="⋃" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-                <Button Click="AddCharacter" Content="⋂" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="∇" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="∆" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="α" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="β" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="γ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
-                <Button Click="AddCharacter" Content="δ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="ε" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="ζ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="η" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="θ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="κ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center">
-                <Button Click="AddCharacter" Content="λ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="μ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="ν" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="ξ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="ρ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="σ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center">
-                <Button Click="AddCharacter" Content="τ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="φ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="χ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="ψ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="ω" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="Γ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="6" HorizontalAlignment="Center">
-                <Button Click="AddCharacter" Content="Θ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="Λ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="Ξ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="Υ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="Φ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="Ψ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="7" HorizontalAlignment="Center">
-                <Button Click="AddCharacter" Content="Ω" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="℧" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="Å" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="ℏ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="ℵ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="⇋" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="8" HorizontalAlignment="Center">
-                <Button Click="AddCharacter" Content="→" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="⊕" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="⊙" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                <Button Click="AddCharacter" Content="†" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            </StackPanel>
-        </Grid>
-    </Grid>
+			<Grid x:Name="SnappedKeys" Grid.Row="2" HorizontalAlignment="Center" Opacity="0" Visibility="Collapsed">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="50" />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="50" />
+				</Grid.RowDefinitions>
+				<StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
+					<Button Click="AddCharacter" Content="π" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="°" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="∞" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="√" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="∫" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="∮" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+					<Button Click="AddCharacter" Content="∑" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="∂" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="∏" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="∀" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="∃" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="⋃" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+					<Button Click="AddCharacter" Content="⋂" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="∇" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="∆" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="α" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="β" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="γ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+					<Button Click="AddCharacter" Content="δ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="ε" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="ζ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="η" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="θ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="κ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center">
+					<Button Click="AddCharacter" Content="λ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="μ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="ν" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="ξ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="ρ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="σ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center">
+					<Button Click="AddCharacter" Content="τ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="φ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="χ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="ψ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="ω" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="Γ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="6" HorizontalAlignment="Center">
+					<Button Click="AddCharacter" Content="Θ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="Λ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="Ξ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="Υ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="Φ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="Ψ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="7" HorizontalAlignment="Center">
+					<Button Click="AddCharacter" Content="Ω" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="℧" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="Å" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="ℏ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="ℵ" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="⇋" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="8" HorizontalAlignment="Center">
+					<Button Click="AddCharacter" Content="→" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="⊕" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="⊙" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+					<Button Click="AddCharacter" Content="†" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</Grid>
 </common:LayoutAwarePage>

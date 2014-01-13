@@ -164,7 +164,7 @@ namespace SearchulatorGrid
         {
             if (Result != null)
             {
-                Result.NumRows = (int) Math.Floor((e.NewSize.Height - 186) / 150);
+                Result.NumRows = (int) Math.Floor((e.NewSize.Height - 140 - 10 - 70) / 160);
             }
         }
 
